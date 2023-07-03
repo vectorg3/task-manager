@@ -1,0 +1,31 @@
+<div class="modal__title">CREATE TASK</div>
+<div class="modal__form" [formGroup]="taskForm">
+  <input
+    class="modal__input"
+    placeholder="Task description...(min 5 symb.)"
+    formControlName="body"
+  />
+</div>
+<div class="modal__categories">
+  <div class="categories__title">Categories</div>
+  <ul class="categories__list">
+    <li
+      *ngFor="let item of categories; let i = index"
+      [ngClass]="
+        selectedCategory == i ? 'categories__item-active' : 'categories__item'
+      "
+      [style.background]="item.background"
+      (click)="selectCategory(i)"
+    >
+      {{ item.label }}
+    </li>
+  </ul>
+</div>
+<button
+  class="modal__submit"
+  type="button"
+  (click)="handleSubmit()"
+  [disabled]="!taskForm.valid"
+>
+  SUBMIT TASK
+</button>
