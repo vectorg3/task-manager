@@ -14,13 +14,15 @@
   </div>
   <div class="dashboard__taskPanel">
     <div class="dashboard__header">
-      <div class="header__tasksCount">5 tasks</div>
+      <div class="header__tasksCount">{{ tasks.length }} tasks</div>
       <button class="header__addTask" [swal]="newTaskSwal">Add new task</button>
-      <button class="header__clearTasks">Clear completed</button>
+      <button class="header__clearTasks" (click)="clearCompleted()">
+        Clear completed
+      </button>
     </div>
     <div class="dashboard__tasks">
       <ul class="dashboard__tasklist">
-        <li class="dashboard__tasklist-item" *ngFor="let item of tasks">
+        <li class="dashboard__tasklist-item" *ngFor="let item of filteredTasks">
           <img
             class="task__status"
             [src]="
@@ -28,6 +30,7 @@
                 ? '../../assets/check-completed.svg'
                 : '../../assets/check.svg'
             "
+            (click)="changeStatus(item)"
           />
           <p class="task__body">{{ item.body }}</p>
           <div
@@ -39,9 +42,13 @@
         </li>
       </ul>
       <div class="dashboard__taskFilter">
-        <div class="filter__item">Active</div>
-        <div class="filter__item-active">All</div>
-        <div class="filter__item">Completed</div>
+        <div
+          *ngFor="let item of filters"
+          [ngClass]="selectedFilter==item ? 'filter__item-active' : 'filter__item' "
+          (click)="changeFilter(item)"
+        >
+          {{ item }}
+        </div>
       </div>
     </div>
   </div>

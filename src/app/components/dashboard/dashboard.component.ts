@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { SwalComponent, SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
 import { categories } from 'src/app/constants/categories';
+import { filters } from 'src/app/constants/filters';
 import { ICATEGORY } from 'src/app/models/CATEGORY';
 import { ITASK } from 'src/app/models/TASK';
 
@@ -55,9 +56,46 @@ export class DashboardComponent {
       },
     },
   ];
+  filteredTasks: ITASK[] = this.tasks;
+  filters: string[] = filters;
+  selectedFilter: string = 'All';
   constructor(public readonly swalTargets: SwalPortalTargets) {}
   addTask(task: ITASK) {
     this.tasks.unshift(task);
     this.newTaskSwal.close();
+  }
+  changeStatus(task: ITASK) {
+    this.tasks = this.tasks.map((item) => {
+      if (item == task) {
+        item.completed = !item.completed;
+      }
+      return item;
+    });
+    this.filteredTasks = this.tasks;
+  }
+  clearCompleted() {
+    this.tasks = this.tasks.filter((item) => item.completed !== true);
+    this.filteredTasks = this.tasks;
+  }
+  changeFilter(filter: string) {
+    this.selectedFilter = filter;
+    switch (filter) {
+      case 'All':
+        this.filteredTasks = this.tasks;
+        break;
+      case 'Active':
+        this.filteredTasks = this.tasks.filter(
+          (item) => item.completed == false
+        );
+        console.log(this.tasks);
+        break;
+      case 'Completed':
+        this.filteredTasks = this.tasks.filter(
+          (item) => item.category.label == 'Completed'
+        );
+        break;
+      default:
+        break;
+    }
   }
 }

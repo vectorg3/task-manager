@@ -86,23 +86,24 @@ body {
   background-color: #f7ecde;
 }
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
+  background: #54bab9
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #54bab9;
   border-radius: 10px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #cccccc;
+  background: #38938a;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #b9b9b9;
+  background: #38938a;
   border-radius: 10px;
 }

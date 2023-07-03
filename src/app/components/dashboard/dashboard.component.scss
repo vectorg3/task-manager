@@ -1,8 +1,6 @@
 .dashboard {
   display: flex;
   flex-direction: row;
-  width: 912px;
-  height: 520px;
   gap: 12px;
   &__categories {
     border-radius: 10px;
@@ -10,17 +8,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      display: block;
+      border-radius: 0px 0px 10px 10px;
+      background: #38938a;
+      width: 100%;
+      bottom: -0.6rem;
+      height: 1.3rem;
+      z-index: -1;
+    }
   }
   &__taskPanel {
     display: flex;
     flex-direction: column;
     gap: 15px;
     width: 650px;
-    height: 520px;
   }
   &__header {
-    width: 650px;
-    height: 50px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -28,16 +35,41 @@
     padding: 10px 15px 10px 20px;
     background-color: #54bab9;
     border-radius: 10px;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      display: block;
+      border-radius: 0px 0px 10px 10px;
+      background: #38938a;
+      width: 100%;
+      bottom: -0.5rem;
+      left: 0;
+      height: 1.1rem;
+      z-index: -1;
+    }
   }
   &__tasks {
     border-radius: 10px;
     background: #54bab9;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      display: block;
+      border-radius: 0px 0px 10px 10px;
+      background: #38938a;
+      width: 100%;
+      bottom: -0.6rem;
+      left: 0;
+      height: 1.1rem;
+      z-index: -1;
+    }
   }
   &__tasklist {
     display: flex;
     flex-direction: column;
-    width: 650px;
-    height: 406px;
+    height: 400px;
     overflow-y: scroll;
     &-item {
       display: flex;
@@ -46,6 +78,7 @@
       justify-content: space-between;
       padding: 26px 20px 27px 20px;
       border-bottom: 1px solid #e4e4e4;
+      gap: 1rem;
     }
   }
   &__taskFilter {
@@ -140,6 +173,8 @@
   font-size: 20px;
   color: #44a0a0;
   font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
   &-active {
     color: #fff;
   }
