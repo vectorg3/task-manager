@@ -14,7 +14,7 @@
   </div>
   <div class="dashboard__taskPanel">
     <div class="dashboard__header">
-      <div class="header__tasksCount">{{ tasks.length }} tasks</div>
+      <div class="header__tasksCount">{{ (tasks$ | async)?.length }} tasks</div>
       <button class="header__addTask" [swal]="newTaskSwal">Add new task</button>
       <button class="header__clearTasks" (click)="clearCompleted()">
         Clear completed
@@ -22,7 +22,10 @@
     </div>
     <div class="dashboard__tasks">
       <ul class="dashboard__tasklist">
-        <li class="dashboard__tasklist-item" *ngFor="let item of filteredTasks">
+        <li
+          class="dashboard__tasklist-item"
+          *ngFor="let item of filteredTasks$ | async"
+        >
           <img
             class="task__status"
             [src]="
@@ -44,7 +47,9 @@
       <div class="dashboard__taskFilter">
         <div
           *ngFor="let item of filters"
-          [ngClass]="selectedFilter==item ? 'filter__item-active' : 'filter__item' "
+          [ngClass]="
+            selectedFilter == item ? 'filter__item-active' : 'filter__item'
+          "
           (click)="changeFilter(item)"
         >
           {{ item }}

@@ -1,9 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { SwalComponent, SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
+import { Observable, map } from 'rxjs';
 import { categories } from 'src/app/constants/categories';
 import { filters } from 'src/app/constants/filters';
 import { ICATEGORY } from 'src/app/models/CATEGORY';
 import { ITASK } from 'src/app/models/TASK';
+import { TasksService } from 'src/app/services/tasks.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,84 +16,44 @@ export class DashboardComponent {
   @ViewChild('newTaskSwal')
   public newTaskSwal!: SwalComponent;
   categories: ICATEGORY[] = categories;
-  tasks: ITASK[] = [
-    {
-      completed: true,
-      body: 'Memorize the fifty states and their capitals',
-      category: {
-        label: 'Completed',
-        background: '#4CAF50',
-      },
-    },
-    {
-      completed: true,
-      body: 'Memorize the fifty states and their capitals',
-      category: {
-        label: 'Urgent',
-        background: '#FF5252',
-      },
-    },
-    {
-      completed: true,
-      body: 'Memorize the fifty states and their capitals',
-      category: {
-        label: 'Important',
-        background: '#FFC107',
-      },
-    },
-    {
-      completed: true,
-      body: 'Memorize the fifty states and their capitals',
-      category: {
-        label: 'Later',
-        background: '#9C27B0',
-      },
-    },
-    {
-      completed: true,
-      body: 'Memorize the fifty states and their capitals',
-      category: {
-        label: 'To study',
-        background: '#25A7B8',
-      },
-    },
-  ];
-  filteredTasks: ITASK[] = this.tasks;
+  tasks$!: Observable<ITASK[]>;
+  filteredTasks$: Observable<ITASK[]> = this.tasks$;
   filters: string[] = filters;
   selectedFilter: string = 'All';
-  constructor(public readonly swalTargets: SwalPortalTargets) {}
+  constructor(
+    public readonly swalTargets: SwalPortalTargets,
+    private tasksService: TasksService
+  ) {
+    this.tasks$ = this.tasksService.getAll();
+    this.filteredTasks$ = this.tasks$;
+  }
   addTask(task: ITASK) {
-    this.tasks.unshift(task);
+    this.tasksService.addTask(task);
     this.newTaskSwal.close();
+    this.changeFilter('All');
   }
   changeStatus(task: ITASK) {
-    this.tasks = this.tasks.map((item) => {
-      if (item == task) {
-        item.completed = !item.completed;
-      }
-      return item;
-    });
-    this.filteredTasks = this.tasks;
+    this.tasksService.changeStatus(task);
+    this.filteredTasks$ = this.tasks$;
   }
   clearCompleted() {
-    this.tasks = this.tasks.filter((item) => item.completed !== true);
-    this.filteredTasks = this.tasks;
+    this.tasks$ = this.tasksService.clearCompleted();
+    this.filteredTasks$ = this.tasks$;
   }
   changeFilter(filter: string) {
     this.selectedFilter = filter;
     switch (filter) {
       case 'All':
-        this.filteredTasks = this.tasks;
+        this.filteredTasks$ = this.tasks$;
         break;
       case 'Active':
-        this.filteredTasks = this.tasks.filter(
-          (item) => item.completed == false
+        this.filteredTasks$ = this.tasks$.pipe(
+          map((items) => items.filter((item) => item.completed == false))
         );
-        console.log(this.tasks);
         break;
       case 'Completed':
-        this.filteredTasks = this.tasks.filter(
-          (item) => item.category.label == 'Completed'
+        this.filteredTasks$ = this.tasks$.pipe(
+          map((items) => items.filter((item) => item.completed == false))
         );
         break;
       default:

@@ -1,7 +1,7 @@
-import { ICATEGORY } from "./CATEGORY";
+import { ICATEGORY } from './CATEGORY';
 
-export interface ITASK{
-    completed: boolean;
-    body: string;
-    category: ICATEGORY;
+export interface ITASK {
+  completed: boolean;
+  body: string;
+  category: ICATEGORY;
 }

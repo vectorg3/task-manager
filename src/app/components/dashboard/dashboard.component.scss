@@ -167,6 +167,9 @@
     border-radius: 10px;
     text-align: center;
   }
+  &__status {
+    cursor: pointer;
+  }
 }
 .filter__item,
 .filter__item-active {
