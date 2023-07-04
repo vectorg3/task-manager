@@ -1,0 +1,29 @@
+<div class="modal__title">CREATE CATEGORY</div>
+<div class="modal__form" [formGroup]="categoryForm">
+  <input
+    class="modal__input"
+    placeholder="Category label...(min 3 symb.)"
+    formControlName="label"
+  />
+</div>
+<div class="modal__colors">
+  <div class="colors__title">Colors</div>
+  <ul class="colors__list">
+    <li
+      *ngFor="let item of colors; let i = index"
+      [ngClass]="selectedColor == i ? 'colors__item-active' : 'colors__item'"
+      [style.background]="item"
+      (click)="selectColor(i)"
+    >
+      {{ item }}
+    </li>
+  </ul>
+</div>
+<button
+  class="modal__submit"
+  type="button"
+  (click)="handleSubmit()"
+  [disabled]="!categoryForm.valid"
+>
+  SUBMIT
+</button>

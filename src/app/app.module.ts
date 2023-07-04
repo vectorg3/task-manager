@@ -4,12 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ModalComponent } from './components/modal/modal.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NewTaskComponent } from './components/new-task/new-task.component';
+import { NewCategoryComponent } from './components/new-category/new-category.component';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, ModalComponent],
+  declarations: [AppComponent, DashboardComponent, NewTaskComponent, NewCategoryComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

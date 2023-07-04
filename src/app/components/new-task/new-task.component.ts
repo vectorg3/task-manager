@@ -5,11 +5,11 @@ import { ICATEGORY } from 'src/app/models/CATEGORY';
 import { ITASK } from 'src/app/models/TASK';
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss'],
+  selector: 'app-new-task',
+  templateUrl: './new-task.component.html',
+  styleUrls: ['./new-task.component.scss'],
 })
-export class ModalComponent {
+export class NewTaskComponent {
   categories: ICATEGORY[] = categories;
   selectedCategory: number = 0;
   @Output() newTask = new EventEmitter<ITASK>();

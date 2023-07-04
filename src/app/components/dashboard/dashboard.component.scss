@@ -9,6 +9,7 @@
     flex-direction: column;
     align-items: center;
     position: relative;
+    height: 520px;
     &::after {
       content: "";
       position: absolute;
@@ -117,6 +118,8 @@
     margin-top: 46px;
     gap: 10px;
     width: 88%;
+    height: 200px;
+    overflow-y: scroll;
   }
   &__item {
     color: #fff;

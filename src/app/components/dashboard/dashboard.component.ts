@@ -5,6 +5,7 @@ import { categories } from 'src/app/constants/categories';
 import { filters } from 'src/app/constants/filters';
 import { ICATEGORY } from 'src/app/models/CATEGORY';
 import { ITASK } from 'src/app/models/TASK';
+import { CategoriesService } from 'src/app/services/categories.service';
 import { TasksService } from 'src/app/services/tasks.service';
 
 @Component({
@@ -15,17 +16,21 @@ import { TasksService } from 'src/app/services/tasks.service';
 export class DashboardComponent {
   @ViewChild('newTaskSwal')
   public newTaskSwal!: SwalComponent;
-  categories: ICATEGORY[] = categories;
+  @ViewChild('newCategorySwal')
+  public newCategorySwal!: SwalComponent;
+  categories$!: Observable<ICATEGORY[]>;
   tasks$!: Observable<ITASK[]>;
   filteredTasks$: Observable<ITASK[]> = this.tasks$;
   filters: string[] = filters;
   selectedFilter: string = 'All';
   constructor(
     public readonly swalTargets: SwalPortalTargets,
-    private tasksService: TasksService
+    private tasksService: TasksService,
+    private categoriesService: CategoriesService
   ) {
     this.tasks$ = this.tasksService.getAll();
     this.filteredTasks$ = this.tasks$;
+    this.categories$ = this.categoriesService.getAll();
   }
   addTask(task: ITASK) {
     this.tasksService.addTask(task);
@@ -59,5 +64,9 @@ export class DashboardComponent {
       default:
         break;
     }
+  }
+  addCategory(category: ICATEGORY) {
+    this.categoriesService.addNew(category);
+    this.newCategorySwal.close();
   }
 }

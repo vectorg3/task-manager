@@ -4,13 +4,15 @@
     <ul class="categories__list">
       <li
         class="categories__item"
-        *ngFor="let item of categories"
+        *ngFor="let item of categories$ | async"
         [style.background]="item.background"
       >
         {{ item.label }}
       </li>
     </ul>
-    <button class="categories__add">Add category</button>
+    <button class="categories__add" [swal]="newCategorySwal">
+      Add category
+    </button>
   </div>
   <div class="dashboard__taskPanel">
     <div class="dashboard__header">
@@ -66,5 +68,21 @@
     showConfirmButton: false
   }"
 >
-  <app-modal *swalPortal="undefined" (newTask)="addTask($event)"></app-modal>
+  <app-new-task
+    *swalPortal="undefined"
+    (newTask)="addTask($event)"
+  ></app-new-task>
+</swal>
+<swal
+  #newCategorySwal
+  [swalOptions]="{
+    background: '#54BAB9',
+    width: 500,
+    showConfirmButton: false
+  }"
+>
+  <app-new-category
+    *swalPortal="undefined"
+    (newCategory)="addCategory($event)"
+  ></app-new-category>
 </swal>
