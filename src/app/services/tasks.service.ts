@@ -6,57 +6,27 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class TasksService {
-  tasks: ITASK[] = [
-    {
-      completed: true,
-      body: 'Memorize the fifty states and their capitals',
-      category: {
-        label: 'Completed',
-        background: '#4CAF50',
-      },
-    },
-    {
-      completed: true,
-      body: 'Memorize the fifty states and their capitals',
-      category: {
-        label: 'Urgent',
-        background: '#FF5252',
-      },
-    },
-    {
-      completed: true,
-      body: 'Memorize the fifty states and their capitals',
-      category: {
-        label: 'Important',
-        background: '#FFC107',
-      },
-    },
-    {
-      completed: true,
-      body: 'Memorize the fifty states and their capitals',
-      category: {
-        label: 'Later',
-        background: '#9C27B0',
-      },
-    },
-    {
-      completed: true,
-      body: 'Memorize the fifty states and their capitals',
-      category: {
-        label: 'To study',
-        background: '#25A7B8',
-      },
-    },
-  ];
-  constructor() {}
+  tasks: ITASK[] = [];
+  constructor() {
+    const localTasks = localStorage.getItem('tasks');
+    console.log(localTasks);
+    if (localTasks !== null) {
+      this.tasks = JSON.parse(localTasks);
+    }
+  }
+  saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+  }
   getAll(): Observable<ITASK[]> {
     return of(this.tasks);
   }
   addTask(task: ITASK) {
     this.tasks.unshift(task);
+    this.saveTasks();
   }
   clearCompleted(): Observable<ITASK[]> {
     this.tasks = this.tasks.filter((item) => item.completed !== true);
+    this.saveTasks();
     return of(this.tasks);
   }
   changeStatus(task: ITASK): Observable<ITASK[]> {
@@ -66,6 +36,7 @@ export class TasksService {
       }
       return item;
     });
+    this.saveTasks();
     return of(this.tasks);
   }
 }

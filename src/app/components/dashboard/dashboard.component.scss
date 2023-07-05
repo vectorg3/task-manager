@@ -5,6 +5,7 @@
   &__categories {
     border-radius: 10px;
     background-color: var(--color-bg-card);
+    transition: all 0.3s linear;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,6 +36,7 @@
     justify-content: space-between;
     padding: 10px 15px 10px 20px;
     background-color: var(--color-bg-card);
+    transition: all 0.3s linear;
     border-radius: 10px;
     position: relative;
     &::after {
@@ -53,6 +55,7 @@
   &__tasks {
     border-radius: 10px;
     background-color: var(--color-bg-card);
+    transition: all 0.3s linear;
     position: relative;
     &::after {
       content: "";
