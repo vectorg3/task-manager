@@ -46,6 +46,7 @@ export class DashboardComponent {
   clearCompleted() {
     this.tasks$ = this.tasksService.clearCompleted();
     this.filteredTasks$ = this.tasks$;
+    this.changeFilter('All');
   }
   changeFilter(filter: string) {
     this.selectedFilter = filter;
