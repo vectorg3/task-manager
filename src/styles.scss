@@ -83,11 +83,11 @@ h6 {
 /*--------------------*/
 body {
   font-family: "Open Sans", sans-serif;
-  background-color: #f7ecde;
+  background-color: var(--color-bg-main);
 }
 ::-webkit-scrollbar {
   width: 5px;
-  background: #54bab9
+  background: #54bab9;
 }
 
 /* Track */
@@ -106,4 +106,13 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #38938a;
   border-radius: 10px;
+}
+
+:root {
+  --color-bg-main: #f7ecde;
+  --color-bg-card: #54bab9;
+}
+[data-theme="dark"] {
+  --color-bg-main: #1c273b;
+  --color-bg-card: #354259;
 }

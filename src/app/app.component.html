@@ -1,4 +1,9 @@
 <div class="wrapper">
+  <img
+    class="app-theme"
+    (click)="modeToggle()"
+    [src]="darkMode ? '../assets/Moon.svg' : '../assets/Sun.svg'"
+  />
   <h1 class="title">PERSONAL TASK MANAGER</h1>
   <app-dashboard></app-dashboard>
 </div>
