@@ -1,17 +1,19 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, ViewChild } from '@angular/core';
 import { SwalComponent, SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
 import { Observable, map } from 'rxjs';
-import { categories } from 'src/app/constants/categories';
 import { filters } from 'src/app/constants/filters';
 import { ICATEGORY } from 'src/app/models/CATEGORY';
 import { ITASK } from 'src/app/models/TASK';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { TasksService } from 'src/app/services/tasks.service';
+import { fadeIn, fadeOut } from './animations/task';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  animations: [fadeIn, fadeOut],
 })
 export class DashboardComponent {
   @ViewChild('newTaskSwal')
@@ -58,7 +60,7 @@ export class DashboardComponent {
         break;
       case 'Completed':
         this.filteredTasks$ = this.tasks$.pipe(
-          map((items) => items.filter((item) => item.completed == false))
+          map((items) => items.filter((item) => item.completed == true))
         );
         break;
       default:

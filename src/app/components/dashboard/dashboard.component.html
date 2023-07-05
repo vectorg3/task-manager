@@ -27,6 +27,8 @@
         <li
           class="dashboard__tasklist-item"
           *ngFor="let item of filteredTasks$ | async"
+          @fadeIn
+          @fadeOut
         >
           <img
             class="task__status"

@@ -10,12 +10,18 @@ import { NewTaskComponent } from './components/new-task/new-task.component';
 import { NewCategoryComponent } from './components/new-category/new-category.component';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, NewTaskComponent, NewCategoryComponent],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    NewTaskComponent,
+    NewCategoryComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     SweetAlert2Module.forRoot(),
     ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
