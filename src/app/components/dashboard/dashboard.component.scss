@@ -233,5 +233,30 @@
     &__tasks {
       width: 310px;
     }
+    &__tasklist-item{
+      padding: 0.5rem;
+      height: 80px;
+      gap: 0.5rem;
+      justify-content: flex-start;
+      position: relative;
+    }
+  }
+  .task {
+    &__body {
+      font-size: 16px;
+    }
+    &__category {
+      position: absolute;
+      right: -30px;
+      bottom: 27px;
+      height: 28px;
+      border-radius: 0;
+      padding: 0;
+      text-align: left;
+      transform: rotate(-90deg);  
+      width: 80px;
+      float: right;
+      font-size: 15px;
+    }
   }
 }
