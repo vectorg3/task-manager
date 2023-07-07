@@ -89,3 +89,27 @@
     }
   }
 }
+@media (max-width: 501px) {
+  .modal{
+    &__title{
+      font-size: 18px;
+    }
+    &__input{
+      width: 100%;
+    }
+  }
+  .categories {
+    &__title {
+      font-size: 16px;
+      &::after,
+      &::before {
+        content: "";
+        width: 29%;
+      }
+    }
+    &__item,
+    &__item-active {
+      font-size: 16px;
+    }
+  }
+}

@@ -9,7 +9,6 @@ export class TasksService {
   tasks: ITASK[] = [];
   constructor() {
     const localTasks = localStorage.getItem('tasks');
-    console.log(localTasks);
     if (localTasks !== null) {
       this.tasks = JSON.parse(localTasks);
     }

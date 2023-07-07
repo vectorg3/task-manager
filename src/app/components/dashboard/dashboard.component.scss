@@ -188,3 +188,50 @@
     color: #fff;
   }
 }
+@media (max-width: 912px) {
+  .dashboard {
+    &__categories {
+      display: none;
+    }
+    &__header {
+      background: transparent;
+      justify-content: center;
+      &::after {
+        background: transparent;
+      }
+    }
+    &__taskPanel {
+      align-items: center;
+      width: 600px;
+    }
+    &__tasks {
+      width: 600px;
+    }
+  }
+  .header {
+    &__tasksCount,
+    &__clearTasks {
+      display: none;
+    }
+    &__addTask {
+      border-radius: 15px;
+      background: #54bab9;
+      box-shadow: 0px 4px 0px 0px #38938a;
+    }
+  }
+}
+@media (max-width: 620px) {
+  .filter__item,
+  .filter__item-active {
+    font-size: 16px;
+  }
+  .dashboard {
+    &__taskPanel {
+      align-items: center;
+      width: 310px;
+    }
+    &__tasks {
+      width: 310px;
+    }
+  }
+}

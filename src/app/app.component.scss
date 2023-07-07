@@ -20,3 +20,18 @@
   right: 50px;
   cursor: pointer;
 }
+@media (max-width: 912px) {
+  .title{
+    margin: 20px 0px 20px 0px;
+  }
+}
+@media (max-width: 501px) {
+  .title{
+    font-size: 26px;
+  }
+  .app-theme{
+    width: 30px;
+    top: 20px;
+    right: 20px;
+  }
+}
