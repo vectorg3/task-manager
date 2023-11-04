@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { categories } from 'src/app/constants/categories';
 import { ICATEGORY } from 'src/app/models/CATEGORY';
 import { ITASK } from 'src/app/models/TASK';
+import { CategoriesService } from 'src/app/services/categories.service';
 
 @Component({
   selector: 'app-new-task',
@@ -10,8 +11,9 @@ import { ITASK } from 'src/app/models/TASK';
   styleUrls: ['./new-task.component.scss'],
 })
 export class NewTaskComponent {
-  categories: ICATEGORY[] = categories;
-  selectedCategory: number = 0;
+  constructor(public categoriesService: CategoriesService){}
+  //@ts-ignore
+  selectedCategory: ICATEGORY;
   @Output() newTask = new EventEmitter<ITASK>();
   taskForm = new FormGroup({
     body: new FormControl<string>('', {
@@ -28,12 +30,14 @@ export class NewTaskComponent {
       }
     ),
   });
-  selectCategory(index: number) {
-    this.selectedCategory = index;
-    this.taskForm.patchValue({ category: categories[index] });
+  selectCategory(item: ICATEGORY) {
+    this.selectedCategory = item;
+    this.taskForm.patchValue({ category: item });
+    console.log(this.taskForm.value)
   }
   handleSubmit() {
     const task = { ...this.taskForm.getRawValue(), completed: false };
+    console.log(task)
     this.newTask.emit(task);
     this.taskForm.reset();
   }

@@ -4,7 +4,7 @@
     <ul class="categories__list">
       <li
         class="categories__item"
-        *ngFor="let item of categories$ | async"
+        *ngFor="let item of categoriesService.categories$ | async"
         [style.background]="item.background"
       >
         {{ item.label }}
@@ -16,17 +16,18 @@
   </div>
   <div class="dashboard__taskPanel">
     <div class="dashboard__header">
-      <div class="header__tasksCount">{{ (tasks$ | async)?.length }} tasks</div>
+      <div class="header__tasksCount">{{ (tasksService.tasks$ | async)?.length }} tasks</div>
       <button class="header__addTask" [swal]="newTaskSwal">Add new task</button>
       <button class="header__clearTasks" (click)="clearCompleted()">
         Clear completed
       </button>
     </div>
+    
     <div class="dashboard__tasks">
-      <ul class="dashboard__tasklist">
+      <ul class="dashboard__tasklist" *ngIf="showTasks">
         <li
           class="dashboard__tasklist-item"
-          *ngFor="let item of filteredTasks$ | async"
+          *ngFor="let item of (tasksService.tasks$ | async)! | filterTasks : selectedFilter"
           @fadeIn
           @fadeOut
         >
@@ -37,7 +38,7 @@
                 ? '../../assets/check-completed.svg'
                 : '../../assets/check.svg'
             "
-            (click)="changeStatus(item)"
+            (click)="tasksService.changeStatus(item)"
           />
           <p class="task__body">{{ item.body }}</p>
           <div

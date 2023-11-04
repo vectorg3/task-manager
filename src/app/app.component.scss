@@ -14,22 +14,76 @@
   margin: 80px 0px 50px 0px;
   line-height: 90%;
 }
-.app-theme {
+.app-toolbar {
   position: absolute;
   top: 50px;
   right: 50px;
-  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  &-item {
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+  }
+}
+.icon {
+  width: 35px;
+  height: 35px;
+}
+.user {
+  &__info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+  &__icon {
+    width: 115px;
+    height: 80px;
+  }
+  &__username {
+    color: #ca2dfe;
+    font-size: 16px;
+  }
+  &__logout {
+    color: #278d8c;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 200%;
+    border-radius: 10px;
+    border: 2px solid #38938a;
+    background: #fff;
+    margin-top: 1rem;
+    transition: all 0.2s ease-in;
+    cursor: pointer;
+      &:hover {
+        color: #fff;
+        background: #38938a;
+      }
+      &:disabled {
+        color: gray;
+        background-color: #e6e6e6;
+      }
+  }
+}
+@media (max-height: 700px){
+  .title{
+    margin: 40px 0px 30px 0px;
+  }
 }
 @media (max-width: 912px) {
-  .title{
+  .title {
     margin: 20px 0px 20px 0px;
   }
 }
 @media (max-width: 501px) {
-  .title{
+  .title {
     font-size: 26px;
   }
-  .app-theme{
+  .app-theme {
     width: 30px;
     top: 20px;
     right: 20px;

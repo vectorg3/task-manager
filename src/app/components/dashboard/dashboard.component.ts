@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, ViewChild } from '@angular/core';
 import { SwalComponent, SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map, take } from 'rxjs';
 import { filters } from 'src/app/constants/filters';
 import { ICATEGORY } from 'src/app/models/CATEGORY';
 import { ITASK } from 'src/app/models/TASK';
@@ -20,53 +20,33 @@ export class DashboardComponent {
   public newTaskSwal!: SwalComponent;
   @ViewChild('newCategorySwal')
   public newCategorySwal!: SwalComponent;
-  categories$!: Observable<ICATEGORY[]>;
-  tasks$!: Observable<ITASK[]>;
-  filteredTasks$: Observable<ITASK[]> = this.tasks$;
+  @ViewChild('authSwal')
+  public authSwal!: SwalComponent;
+  public showTasks: boolean = false;
   filters: string[] = filters;
   selectedFilter: string = 'All';
   constructor(
     public readonly swalTargets: SwalPortalTargets,
-    private tasksService: TasksService,
-    private categoriesService: CategoriesService
+    public tasksService: TasksService,
+    public categoriesService: CategoriesService
   ) {
-    this.tasks$ = this.tasksService.getAll();
-    this.filteredTasks$ = this.tasks$;
-    this.categories$ = this.categoriesService.getAll();
+  }
+  ngOnInit() {
+    setTimeout(() => {
+      this.showTasks = true;
+    }, 300);
   }
   addTask(task: ITASK) {
     this.tasksService.addTask(task);
     this.newTaskSwal.close();
     this.changeFilter('All');
   }
-  changeStatus(task: ITASK) {
-    this.tasksService.changeStatus(task);
-    this.filteredTasks$ = this.tasks$;
-  }
   clearCompleted() {
-    this.tasks$ = this.tasksService.clearCompleted();
-    this.filteredTasks$ = this.tasks$;
+    this.tasksService.clearCompleted();
     this.changeFilter('All');
   }
   changeFilter(filter: string) {
     this.selectedFilter = filter;
-    switch (filter) {
-      case 'All':
-        this.filteredTasks$ = this.tasks$;
-        break;
-      case 'Active':
-        this.filteredTasks$ = this.tasks$.pipe(
-          map((items) => items.filter((item) => item.completed == false))
-        );
-        break;
-      case 'Completed':
-        this.filteredTasks$ = this.tasks$.pipe(
-          map((items) => items.filter((item) => item.completed == true))
-        );
-        break;
-      default:
-        break;
-    }
   }
   addCategory(category: ICATEGORY) {
     this.categoriesService.addNew(category);

@@ -10,12 +10,12 @@
   <div class="categories__title">Categories</div>
   <ul class="categories__list">
     <li
-      *ngFor="let item of categories; let i = index"
+      *ngFor="let item of categoriesService.categories$ | async; let i = index"
       [ngClass]="
-        selectedCategory == i ? 'categories__item-active' : 'categories__item'
+        selectedCategory == item ? 'categories__item-active' : 'categories__item'
       "
       [style.background]="item.background"
-      (click)="selectCategory(i)"
+      (click)="selectCategory(item)"
     >
       {{ item.label }}
     </li>

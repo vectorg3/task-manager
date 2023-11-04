@@ -1,0 +1,34 @@
+<div class="modal__title">AUTH</div>
+<div class="modal__form" [formGroup]="authForm">
+  <p *ngIf="authError" style="color: rgba(214, 0, 0, 0.662); font-weight: 700;">
+    {{ authError }}
+  </p>
+  <input
+    class="modal__input"
+    placeholder="Your username... (min 5 symb.)"
+    formControlName="userName"
+  />
+  <input
+    class="modal__input"
+    placeholder="Password"
+    formControlName="password"
+    type="password"
+  />
+</div>
+<button
+  class="modal__submit"
+  style="margin-right: 1rem"
+  type="button"
+  (click)="handleSubmit('login')"
+  [disabled]="!authForm.valid"
+>
+  LOGIN
+</button>
+<button
+  class="modal__submit"
+  type="button"
+  (click)="handleSubmit('sign up')"
+  [disabled]="!authForm.valid"
+>
+  SIGN UP
+</button>

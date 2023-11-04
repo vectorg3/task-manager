@@ -1,9 +1,53 @@
 <div class="wrapper">
-  <img
-    class="app-theme"
-    (click)="modeToggle()"
-    [src]="darkMode ? '../assets/Moon.svg' : '../assets/Sun.svg'"
-  />
+  <div class="app-toolbar">
+    <img
+      class="app-toolbar-item"
+      (click)="modeToggle()"
+      [src]="darkMode ? '../assets/Moon.svg' : '../assets/Sun.svg'"
+    />
+    <img
+      class="app-toolbar-item icon"
+      [swal]="(authService.isUserAuthenticated$ | async) ? userSwal : authSwal"
+      [src]="
+        (authService.isUserAuthenticated$ | async)
+          ? '../assets/login.svg'
+          : '../assets/logout.svg'
+      "
+    />
+  </div>
+
   <h1 class="title">PERSONAL TASK MANAGER</h1>
   <app-dashboard></app-dashboard>
 </div>
+<swal
+  #authSwal
+  [swalOptions]="{
+    background: 'var(--color-bg-card)',
+    width: 500,
+    showConfirmButton: false
+  }"
+>
+  <app-auth *swalPortal="undefined"></app-auth>
+</swal>
+<swal
+  #userSwal
+  [swalOptions]="{
+    background: 'var(--color-bg-card)',
+    width: 350,
+    showConfirmButton: false
+  }"
+>
+  <div *swalPortal="undefined" class="user__info">
+    <img
+      src="../assets/user.png"
+      alt=""
+      class="user__icon"
+    />
+    <div class="user__username">
+      <span style="color: white;font-size: 16px;font-weight: bold;">You authorized as </span>{{ (authService.user$ | async)?.userName }}
+      <div class="user__logout" (click)="logout()">
+        Logout
+      </div>
+    </div>
+  </div>
+</swal>
